@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      body {
+        margin: 1rem auto;
+        max-width: 80ch;
+        line-height: 1.6;
+        font-size: 18px;
+        color: #444;
+        padding: 0 1rem;
+      }
+      code {
+        font-size: 16px;
+      }
+      h1,
+      h2,
+      h3 {
+        line-height: 1.2;
+      }
+    </style>
+
+    <title>Inline PDF support tests</title>
+  </head>
+  <body>
+    <h1>Inline PDF support tests</h1>
+
+    <p>
+      <code>navigator.pdfViewerEnabled</code>:
+      <span id="pdf-viewer-enabled"></span>
+    </p>
+
+    <p>
+      <code>userAgentData.mobile</code>:
+      <span id="new-mobile-test"></span>
+    </p>
+
+    <p>User agent: <span id="user-agent"></span></p>
+
+    <p>Safari iPadOS? <span id="safari-ipad"></span></p>
+
+    <p>Mobile device detected? <span id="mobile-detected"></span></p>
+
+    <script>
+      const newMobileTest = window.navigator.userAgentData?.mobile;
+      document.getElementById("new-mobile-test").innerText = newMobileTest;
+
+      const ua = window.navigator.userAgent;
+      document.getElementById("user-agent").innerText = ua;
+
+      const isSafariIPadOS =
+        /Macintosh/i.test(ua) && window.navigator.maxTouchPoints > 1;
+      document.getElementById("safari-ipad").innerText = isSafariIPadOS;
+
+      const isMobileDevice =
+        newMobileTest === true ||
+        /Mobi|Tablet|Android|iPad|iPhone/.test(ua) ||
+        isSafariIPadOS;
+      document.getElementById("mobile-detected").innerText = isMobileDevice;
+
+      const pdfViewerEnabled = window.navigator.pdfViewerEnabled;
+      document.getElementById("pdf-viewer-enabled").innerText =
+        pdfViewerEnabled;
+    </script>
+  </body>
+</html>
